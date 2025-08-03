@@ -139,6 +139,12 @@
         I promise to cherish you forever 💞
       </p>
       <div class="heart" style="font-size: 80px;">💘</div>
+      <p style="margin-top: 20px; font-size: 18px;">
+        I must confess... your presence in my life is not less than magic ✨<br>
+        Your smile is my peace, your happiness is my mission 😍<br>
+        From this moment, I’ll be the reason behind your every smile 💖<br>
+        Let’s create a love story that even stars envy 🌌
+      </p>
     </div>
   </div>
 
@@ -221,14 +227,18 @@
     }
 
     function submitAnswer() {
-      const answer = document.getElementById("quizAnswerInput").value.trim();
+      let answer = document.getElementById("quizAnswerInput").value.trim().toLowerCase();
+
       if (answer === "") {
         alert("Please type your answer before submitting 🥺");
         return;
       }
 
-      // Save the answer locally
-      localStorage.setItem("herAnswer", answer);
+      // Match sweet answers and treat as option 4
+      const keywords = ["yes", "yess", "obviously", "accepted", "of course", "haan", "sure", "definitely", "ok", "okay", "accept", "acceptance"];
+      if (keywords.some(word => answer.includes(word))) {
+        answer = "4 - All of the above 💕";
+      }
 
       // Start confetti
       startConfetti();
@@ -240,19 +250,8 @@
       // Show final sweet message
       document.getElementById("finalMessage").classList.remove("hidden");
 
-      // Secret notification just for Mihir
-      setTimeout(() => {
-        alert("⚠️ Mihir, she answered: \"" + answer + "\" 💖");
-      }, 1000);
+      console.log("Submitted answer:", answer);  // For debug/logging
     }
-
-    // Alert her previous answer if page reloaded (for Mihir only)
-    window.addEventListener("load", () => {
-      const savedAnswer = localStorage.getItem("herAnswer");
-      if (savedAnswer) {
-        alert("📬 Saved answer from her: \"" + savedAnswer + "\" 💌");
-      }
-    });
 
     window.addEventListener('resize', () => {
       W = window.innerWidth;
